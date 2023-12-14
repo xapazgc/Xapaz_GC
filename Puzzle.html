@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Skull sliding game</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400&display=swap');
+body, html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  background: #222;
+  background: radial-gradient(#fff, #333);
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+#grid {
+  width: 400px;
+  min-height: 400px;
+  background: #1a1a1a;
+  box-shadow: inset 0 0 10px #000, 0 0 10px #000;
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+#grid div {
+  width: 80px;
+  height: 80px;
+  background-image: url("https://i.ibb.co/n0dKhyq/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: 700px auto;
+  position: absolute;
+  transition: top 0.2s ease-in-out, left 0.2s ease-in-out, opacity 0.5s ease-in-out 0.2s;
+  cursor: pointer;
+}
+
+#grid div:nth-child(1) {
+  top: 0px;
+  left: 0px;
+  background-position: 0px 0px;
+}
+
+#grid div:nth-child(2) {
+  top: 0px;
+  left: 80px;
+  background-position: -80px 0px;
+}
+
+#grid div:nth-child(3) {
+  top: 0px;
+  left: 160px;
+  background-position: -160px 0px;
+}
+
+#grid div:nth-child(4) {
+  top: 0px;
+  left: 240px;
+  background-position: -240px 0px;
+}
+
+#grid div:nth-child(5) {
+  top: 0px;
+  left: 320px;
+  background-position: -320px 0px;
+}
+
+#grid div:nth-child(6) {
+  top: 80px;
+  left: 0px;
+  background-position: 0px -80px;
+}
+
+#grid div:nth-child(7) {
+  top: 80px;
+  left: 80px;
+  background-position: -80px -80px;
+}
+
+#grid div:nth-child(8) {
+  top: 80px;
+  left: 160px;
+  background-position: -160px -80px;
+}
+
+#grid div:nth-child(9) {
+  top: 80px;
+  left: 240px;
+  background-position: -240px -80px;
+}
+
+#grid div:nth-child(10) {
+  top: 80px;
+  left: 320px;
+  background-position: -320px -80px;
+}
+
+#grid div:nth-child(11) {
+  top: 160px;
+  left: 0px;
+  background-position: 0px -160px;
+}
+
+#grid div:nth-child(12) {
+  top: 160px;
+  left: 80px;
+  background-position: -80px -160px;
+}
+
+#grid div:nth-child(13) {
+  top: 160px;
+  left: 160px;
+  background-position: -160px -160px;
+}
+
+#grid div:nth-child(14) {
+  top: 160px;
+  left: 240px;
+  background-position: -240px -160px;
+}
+
+#grid div:nth-child(15) {
+  top: 160px;
+  left: 320px;
+  background-position: -320px -160px;
+}
+
+#grid div:nth-child(16) {
+  top: 240px;
+  left: 0px;
+  background-position: 0px -240px;
+}
+
+#grid div:nth-child(17) {
+  top: 240px;
+  left: 80px;
+  background-position: -80px -240px;
+}
+
+#grid div:nth-child(18) {
+  top: 240px;
+  left: 160px;
+  background-position: -160px -240px;
+}
+
+#grid div:nth-child(19) {
+  top: 240px;
+  left: 240px;
+  background-position: -240px -240px;
+}
+
+#grid div:nth-child(20) {
+  top: 240px;
+  left: 320px;
+  background-position: -320px -240px;
+}
+
+#grid div:nth-child(21) {
+  top: 320px;
+  left: 0px;
+  background-position: 0px -320px;
+}
+
+#grid div:nth-child(22) {
+  top: 320px;
+  left: 80px;
+  background-position: -80px -320px;
+}
+
+#grid div:nth-child(23) {
+  top: 320px;
+  left: 160px;
+  background-position: -160px -320px;
+}
+
+#grid div:nth-child(24) {
+  top: 320px;
+  left: 240px;
+  background-position: -240px -320px;
+}
+
+#grid div:nth-child(25) {
+  top: 320px;
+  left: 320px;
+  background-position: -320px -320px;
+}
+
+#tile_5_5.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0s;
+}
+
+.buttons {
+  height: 40px;
+}
+button{
+    font-size: 20px;
+    background: transparent;
+    border-color: #7000FF;
+    color: #fff;
+    font-family: 'Josefin Sans', sans-serif;
+    padding: 8px;
+}
+button:hover{
+    background: #7000FF;
+    border: none;
+}
+#game-text {
+  position: absolute;
+  pointer-events: none;
+  font-size: 64px;
+  color: red;
+  transform: translateY(-30px);
+  background: linear-gradient(darkred, red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0px 3px 1px #000);
+  scale: 0.4;
+  opacity: 0;
+}
+
+#game-text.animate {
+  animation: 2s zoomin;
+}
+
+@keyframes zoomin {
+  0% {
+    scale: 0.4;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    scale: 1.4;
+    opacity: 0;
+  }
+}
+  </style>
+</head>
+<body>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<div id="grid">
+  <div id="tile_1_1"></div>
+  <div id="tile_1_2"></div>
+  <div id="tile_1_3"></div>
+  <div id="tile_1_4"></div>
+  <div id="tile_1_5"></div>
+  <div id="tile_2_1"></div>
+  <div id="tile_2_2"></div>
+  <div id="tile_2_3"></div>
+  <div id="tile_2_4"></div>
+  <div id="tile_2_5"></div>
+  <div id="tile_3_1"></div>
+  <div id="tile_3_2"></div>
+  <div id="tile_3_3"></div>
+  <div id="tile_3_4"></div>
+  <div id="tile_3_5"></div>
+  <div id="tile_4_1"></div>
+  <div id="tile_4_2"></div>
+  <div id="tile_4_3"></div>
+  <div id="tile_4_4"></div>
+  <div id="tile_4_5"></div>
+  <div id="tile_5_1"></div>
+  <div id="tile_5_2"></div>
+  <div id="tile_5_3"></div>
+  <div id="tile_5_4"></div>
+  <div id="tile_5_5" class=""></div>
+</div>
+<div class="buttons">
+  <button id="go">Jumble It</button>
+</div>
+<div id="game-text"></div>
+<div id="timer">Time Left: 5:00</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js'></script>
+  <script>
+var emptyX = 320;
+    var emptyY = 320;
+    var play = false;
+    var timer;
+
+    $( "#grid div" ).each(function() {
+      oX = Math.round($(this).position().left);
+      oY = Math.round($(this).position().top);
+      $(this).attr('data-originalx', oX);
+      $(this).attr('data-originaly', oY);
+      $(this).attr('data-x', oX);
+      $(this).attr('data-y', oY);
+    });
+
+    $("#grid div").click(function () {
+      if (play) {
+        checkMove($(this).attr("id"));
+        checkComplete();
+      }
+    });
+
+    function checkMove(id) {
+      var x = $("#" + id).data("x");
+      var y = $("#" + id).data("y");
+      if (x + 80 == emptyX && y == emptyY) {
+        emptyX = x;
+        $("#" + id).data('x', x + 80);
+        $("#" + id).css("left", x + 80);
+        return true;
+      }
+      if (x - 80 == emptyX && y == emptyY) {
+        emptyX = x;
+        $("#" + id).data('x', x - 80);
+        $("#" + id).css("left", x - 80);
+        return true;
+      }
+      if (x == emptyX && y + 80 == emptyY) {
+        emptyY = y;
+        $("#" + id).data('y', y + 80);
+        $("#" + id).css("top", y + 80);
+        return true;
+      }
+      if (x == emptyX && y - 80 == emptyY) {
+        emptyY = y;
+        $("#" + id).data('y', y - 80);
+        $("#" + id).css("top", y - 80);
+        return true;
+      }
+      return false;
+    }
+
+    function checkComplete() {
+      complete = true;
+      $( "#grid div" ).each(function() {
+        ox = $(this).data('originalx');
+        oy = $(this).data('originaly');
+        cx = $(this).data('x');
+        cy = $(this).data('y');
+        if (ox != cx || oy != cy) {
+          complete = false;
+        }
+      });
+      if (complete) {
+        play = false;
+        $("#tile_5_5").removeClass("hidden");
+        textit("Completed!");
+        clearInterval(timer);
+      }
+    }
+
+    $("#go").click(function (e) {
+      if (e.shiftKey) {
+        textit("Hard mode");
+        $("#grid").toggleClass("alt");
+      } else {
+        $("#tile_5_5").addClass("hidden");
+        randomise(100);
+        textit("Solve IT");
+        play = true;
+        startTimer(5 * 60);
+      }
+    });
+
+    function startTimer(durationInSeconds) {
+      var timerDisplay = $("#timer");
+      timer = setInterval(function () {
+        var minutes = Math.floor(durationInSeconds / 60);
+        var seconds = durationInSeconds % 60;
+        timerDisplay.text("Time Left: " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds);
+        if (--durationInSeconds < 0) {
+          clearInterval(timer);
+          timerDisplay.text("Time's up!");
+          play = false;
+          $("#tile_5_5").removeClass("hidden");
+        }
+      }, 1000);
+    }
+
+    function randomise(n) {
+      while (n > 0) {
+        r = Math.floor(Math.random() * 23) + 1;
+        id = $("#grid div").eq(r).attr("id");
+        if (checkMove(id)) {
+          n--;
+        }
+      }
+      if (n == 0) {
+        return;
+      }
+    }
+
+    function textit(txt) {
+      $("#game-text").html(txt);
+      $("#game-text").addClass("animate");
+      setTimeout(function () {
+        $("#game-text").removeClass("animate");
+      }, 2010);
+    }
+  </script>
+
+</body>
+</html>

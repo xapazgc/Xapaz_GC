@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+
+        .game-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .result {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .choices {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .choice button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .choice button:hover {
+            transform: scale(1.1);
+        }
+
+        .choice img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #player-choice,
+        #computer-choice {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        #player-choice img,
+        #computer-choice img {
+            width: 60px;
+            height: 60px;
+        }
+        
+        #round-info {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #888;
+        }
+    </style>
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Rock, Paper, Scissors</h1>
+        <div id="result" class="result"></div>
+        <div class="choices">
+            <button class="choice" onclick="playGame('rock')"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Pok%C3%A9mon_Rock_Type_Icon.svg/1200px-Pok%C3%A9mon_Rock_Type_Icon.svg.png"></button>
+            <button class="choice" onclick="playGame('paper')"><img src="https://cdn-icons-png.flaticon.com/512/4560/4560646.png"></button>
+            <button class="choice" onclick="playGame('scissors')"><img src="https://cdn-icons-png.flaticon.com/512/6167/6167748.png"></button>
+        </div>
+        <div id="player-choice" class="player-choice"></div>
+        <div id="computer-choice" class="computer-choice"></div>
+        <div id="round-info" class="round-info">Round: <span id="current-round">1</span>/10</div>
+    </div>
+
+    <script>
+        let currentRound = 1;
+
+        function playGame(playerChoice) {
+            if (currentRound <= 10) {
+                const choices = ['rock', 'paper', 'scissors'];
+                const computerChoice = choices[Math.floor(Math.random() * 3)];
+                
+                const result = getResult(playerChoice, computerChoice);
+
+                document.getElementById('result').innerText = `You chose ${playerChoice}. Computer chose ${computerChoice}. ${result}`;
+                updateChoiceImages('player-choice', playerChoice);
+                updateChoiceImages('computer-choice', computerChoice);
+
+                currentRound++;
+                document.getElementById('current-round').innerText = currentRound;
+
+                if (currentRound > 10) {
+                    document.getElementById('round-info').innerText = 'Game over!';
+                }
+            }
+        }
+
+        function getResult(player, computer) {
+            if (player === computer) {
+                return "It's a tie!";
+            } else if ((player === 'rock' && computer === 'scissors') ||
+                    (player === 'paper' && computer === 'rock') ||
+                    (player === 'scissors' && computer === 'paper')) {
+                return 'You win!';
+            } else {
+                return 'Computer wins!';
+            }
+        }
+
+        function updateChoiceImages(elementId, choice) {
+            const imgElement = document.createElement('img');
+            imgElement.src = getChoiceImageSrc(choice);
+            document.getElementById(elementId).innerHTML = '';
+            document.getElementById(elementId).appendChild(imgElement);
+        }
+
+        function getChoiceImageSrc(choice) {
+            switch (choice) {
+                case 'rock':
+                    return 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Pok%C3%A9mon_Rock_Type_Icon.svg/1200px-Pok%C3%A9mon_Rock_Type_Icon.svg.png';
+                case 'paper':
+                    return 'https://cdn-icons-png.flaticon.com/512/4560/4560646.png';
+                case 'scissors':
+                    return 'https://cdn-icons-png.flaticon.com/512/6167/6167748.png';
+                default:
+                    return '';
+            }
+        }
+    </script>
+</body>
+</html>

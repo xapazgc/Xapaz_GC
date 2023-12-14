@@ -1,0 +1,185 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f5f5f5;
+    }
+
+    .head {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .img {
+      width: 75px;
+      height: 75px;
+      margin-right: 10px;
+    }
+
+    .h2 {
+      margin: 0;
+      font-size: 30px;
+    }
+
+    .Boad {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-gap: 5px;
+    }
+
+    .Cal {
+      border-radius: 35px;
+      width: 90px;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .Cal:hover {
+      background-color: #e0e0e0;
+    }
+
+    @media (max-width: 600px) {
+      .Boad {
+        grid-template-columns: repeat(3, 80px);
+      }
+
+      .Cal {
+        width: 80px;
+        height: 80px;
+        font-size: 20px;
+      }
+    }
+    .ai-turn {
+      animation: aiTurnAnimation 0.5s ease-in-out;
+    }
+  </style>
+  <title>Tic Tac Toe</title>
+  <?!= include('JavaScript'); ?>
+</head>
+<body>
+  <div class="head">
+    <img src="https://i.ibb.co/6R0hnmV/A-1-removebg-preview.png" class="img">
+    <h2 class="h2">Tic Tac Toe</h2>
+  </div>
+  <form id="Form">
+    <div id="Boad" class="Boad">
+      <div class="Cal" data-index="0"></div>
+      <div class="Cal" data-index="1"></div>
+      <div class="Cal" data-index="2"></div>
+      <div class="Cal" data-index="3"></div>
+      <div class="Cal" data-index="4"></div>
+      <div class="Cal" data-index="5"></div>
+      <div class="Cal" data-index="6"></div>
+      <div class="Cal" data-index="7"></div>
+      <div class="Cal" data-index="8"></div>
+    </div>
+  </form>
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("Form");
+    const Boad = document.getElementById("Boad");
+    const Cals = document.querySelectorAll(".Cal");
+    let currentPlayer = "X";
+    let gameBoad = ["", "", "", "", "", "", "", "", ""];
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      // Handle form submission if needed
+    });
+
+    Cals.forEach(Cal => {
+      Cal.addEventListener("click", () => {
+        const index = Cal.dataset.index;
+
+        if (gameBoad[index] === "" && !checkWinner() && currentPlayer === "X") {
+          gameBoad[index] = currentPlayer;
+          Cal.textContent = currentPlayer;
+
+          if (checkWinner()) {
+            alert(`Player ${currentPlayer} wins!`);
+          } else if (gameBoad.every(Cal => Cal !== "")) {
+            alert("It's a draw!");
+          } else {
+            currentPlayer = "O";
+            makeAIMove();
+          }
+        }
+      });
+    });
+
+    function makeAIMove() {
+      const emptyCals = gameBoad.reduce((acc, value, index) => {
+        if (value === "") {
+          acc.push(index);
+        }
+        return acc;
+      }, []);
+
+      const randomIndex = Math.floor(Math.random() * emptyCals.length);
+      const aiMoveIndex = emptyCals[randomIndex];
+
+      setTimeout(() => { // Adding a delay for the animation effect
+        gameBoad[aiMoveIndex] = "O";
+        Cals[aiMoveIndex].textContent = "O";
+        Cals[aiMoveIndex].classList.add("ai-turn");
+
+        if (checkWinner()) {
+          alert("Player O (AI) wins!");
+        } else if (gameBoad.every(Cal => Cal !== "")) {
+          alert("It's a draw!");
+        } else {
+          currentPlayer = "X";
+          Cals[aiMoveIndex].classList.remove("ai-turn");
+        }
+      }, 500); // Adjust the delay as needed (in milliseconds)
+    }
+
+    function checkWinner() {
+      const winPatterns = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+        [0, 4, 8], [2, 4, 6]             // Diagonals
+      ];
+
+      for (const pattern of winPatterns) {
+        const [a, b, c] = pattern;
+        if (gameBoad[a] !== "" && gameBoad[a] === gameBoad[b] && gameBoad[a] === gameBoad[c]) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    google.script.run.withSuccessHandler(updatePlayers).getPlayers();
+  });
+
+  function updatePlayers(players) {
+    const [player1, player2] = players;
+    const h2 = document.querySelector(".h2");
+    h2.textContent = `${player1} vs ${player2}`;
+  }
+</script>
+
+</html>

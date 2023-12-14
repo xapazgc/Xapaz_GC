@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 10px;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            font-size: 24px;
+            border-radius: 25px;
+            text-align: center;
+            line-height: 100px;
+            background-color: #eee;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        h2{
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 30px;
+        }
+        .line{
+            display: inline-flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+        img{
+            width: 60px;
+        }
+    </style>
+</head>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet">
+<body>
+    <div class="line">
+        <img src="https://i.ibb.co/6R0hnmV/A-1-removebg-preview.png">
+<h2>15 Magic Square</h2>
+</div>
+<div id="game-board"></div>
+<div id="result"></div>
+
+<script>
+    const cells = [];
+let selectedNumbers = [];
+
+function createGameBoard() {
+    const gameBoard = document.getElementById('game-board');
+
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.dataset.row = i;
+            cell.dataset.col = j;
+            cell.addEventListener('click', handleCellClick);
+            gameBoard.appendChild(cell);
+            cells.push(cell);
+        }
+    }
+}
+
+function handleCellClick(event) {
+    const clickedCell = event.target;
+    const row = parseInt(clickedCell.dataset.row);
+    const col = parseInt(clickedCell.dataset.col);
+
+    const currentNumber = parseInt(clickedCell.innerText);
+
+    const inputBox = document.createElement('input');
+    inputBox.type = 'text';
+    inputBox.value = currentNumber || '';
+    const inputResult = prompt('Enter a number for the selected cell:', inputBox.value);
+
+    if (inputResult === null) {
+        // User clicked cancel
+        return;
+    }
+
+    const enteredNumber = parseInt(inputResult);
+
+    if (isNaN(enteredNumber) || enteredNumber < 1 || enteredNumber > 9) {
+        alert('Please enter a valid number between 1 and 9.');
+        return;
+    }
+
+    if (selectedNumbers.includes(enteredNumber)) {
+        alert('Number already chosen. Please select a different one.');
+        return;
+    }
+
+    if (currentNumber) {
+        const updateConfirmation = confirm('Do you want to update the number?');
+        if (!updateConfirmation) {
+            return;
+        }
+    }
+
+    selectedNumbers.push(enteredNumber);
+    updateCell(clickedCell, enteredNumber);
+
+    if (isBoardComplete() && isMagicSquare(selectedNumbers)) {
+        document.getElementById('result').innerText = 'Congratulations! You won!';
+    }
+}
+
+function updateCell(cell, number) {
+    cell.innerText = number;
+    cell.style.backgroundColor = '#ffa500';
+    cell.style.cursor = 'default';
+    cell.removeEventListener('click', handleCellClick);
+}
+
+function isMagicSquare(numbers) {
+    for (let i = 0; i < 3; i++) {
+        if (numbers[i * 3] + numbers[i * 3 + 1] + numbers[i * 3 + 2] !== 15 ||
+            numbers[i] + numbers[i + 3] + numbers[i + 6] !== 15) {
+            return false;
+        }
+    }
+
+    if (numbers[0] + numbers[4] + numbers[8] !== 15 || numbers[2] + numbers[4] + numbers[6] !== 15) {
+        return false;
+    }
+
+    return true;
+}
+
+function isBoardComplete() {
+    for (const cell of cells) {
+        if (cell.innerText === '') {
+            return false;
+        }
+    }
+    return true;
+}
+
+createGameBoard();
+
+</script>
+
+</body>
+</html>

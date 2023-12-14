@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(function(OneSignal) {
+    OneSignal.init({
+      appId: "655a5eef-88dd-4a13-a032-06f046425f69",
+      safari_web_id: "web.onesignal.auto.1cd53ad7-1124-4d48-8712-0a155e6245f9",
+      notifyButton: {
+        enable: true,
+      },
+    });
+  });
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@350&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+    <div id="openBtn" onclick="openSlider()">☰</div>
+    <div id="slider">&nbsp;
+      <button onclick="closeSlider()" class="x">X</button>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" type="text/css" href="t.css">
+</head>
+<body>
+    <div id="desktopContent">
+    <div class="system-info">
+      <p id="cpuSpeed">CPU Speed: Loading...</p>
+      <div class="chart-container">
+        <canvas id="cpuSpeedChart" style="height: 180px;"></canvas>
+      </div>
+      <p id="processor" style="display:none">Processor: Loading...</p>
+      <p id="ram">RAM: Loading...</p>
+      <div class="chart-container">
+        <canvas id="ramChart" style="height: 180px;"></canvas>
+      </div>
+      <p id="storage" style="display:none;">Storage: Loading...</p>
+      <div class="chart-container" style="display:none;">
+        <canvas id="storageChart" style="height: 180px;"></canvas>
+      </div>
+      <p id="displaySize">Display Size: Loading...</p>
+      <div class="chart-container">
+        <canvas id="displaySizeChart" style="height: 200px;"></canvas>
+      </div>
+      <p id="architecture">Architecture: Loading...</p>
+      <div class="chart-container">
+        <canvas id="architectureChart" style="height: 100px;"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="items"><br>
+	<button onclick="showArticle(1)" class="button">
+    <span>GOOGLE</span>
+</button>&nbsp;&nbsp;&nbsp;
+<button onclick="showArticle(2)" class="button"><span>GAMES </span></button>&nbsp;&nbsp;&nbsp;
+<button onclick="showArticle(3)" class="button"><span>XAPAZ GC</span></button>
+<br><br><br><br><br><br>
+<div id="article1" class="article" style="display: block;">
+<form action="https://www.google.com/search" method="GET">
+        <div class="input-container">
+            <img src="https://static-00.iconduck.com/assets.00/google-icon-2048x2048-czn3g8x8.png" alt="Icon" class="icons">
+            <input type="text" placeholder="Search..." onfocus="removePlaceholder(this)" name="query">
+            <button type="submit"><img src="https://cdn2.iconfinder.com/data/icons/minimal-set-five/32/minimal-48-512.png" style="width: 15px;"></button>
+        </div>
+    </form>
+</div>
+<div id="article2" class="article">
+  <button id="myButton" onclick="openModal()">
+    <img src="https://cdn-icons-png.flaticon.com/512/566/566294.png" style="width: 40px;">
+    <p>Tic&nbsp;Tac&nbsp;Toe</p>
+  </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button onclick="redirectToChess()" id="myButton"><img src="https://cdn2.iconfinder.com/data/icons/business-272/64/STRATEGY-512.png" style="width: 40px;"><p>Chess</p></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button onclick="redirectToPuzzle()" id="myButton"><img src="https://cdn-icons-png.flaticon.com/512/7468/7468192.png" style="width: 40px;"><p>&nbsp;&nbsp;Puzzle</p></button><br>
+  <button onclick="redirectToRock()" id="myButton"><img src="https://media.istockphoto.com/id/1056840214/vector/rock-paper-scissors-vector-illustration.jpg?s=612x612&w=0&k=20&c=6KEBfon5f9BXXhLiu9JfOk6EHsM193SiWMcqDjN1jqM=" style="width: 40px;"><p>&nbsp;&nbsp;Rock&nbsp;Paper</p></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button onclick="redirectToMines()" id="myButton"><img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/47264ce6-f9be-440a-8fe5-de7b40f003e7/dei6h4b-df3577af-65e0-46bc-99c7-ff43b23650ec.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzQ3MjY0Y2U2LWY5YmUtNDQwYS04ZmU1LWRlN2I0MGYwMDNlN1wvZGVpNmg0Yi1kZjM1NzdhZi02NWUwLTQ2YmMtOTljNy1mZjQzYjIzNjUwZWMucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.rtXP_e9oMVKCSuY0zNtE68mFA927FUWDVxu3rfiJryQ" style="width: 40px;"><p>&nbsp;Mines</p></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button onclick="redirectToShoot()" id="myButton"><img src="https://cdn-icons-png.flaticon.com/256/856/856987.png" style="width: 40px;"><p>&nbsp;Shooting</p></button><br>
+  <button onclick="redirectToMagic()" id="myButton"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWMkNM1we2g09RrqotbN2Dwmv1aRej__5Onp1JnQNBLZXSaUW99tUbAjNUcLM2I4cIwTs&usqp=CAU" style="width: 40px;"><p>&nbsp;Magic&nbsp;Sqaure</p></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button onclick="redirectToBlock()" id="myButton"><img src="https://i.ibb.co/hWDbqyG/bg-modified.png" style="width: 40px;"><p>&nbsp;Place&nbsp;Block</p></button>
+  <div class="overlay" id="overlay">
+    <div class="centered-div">
+    <p>Choose an option:-</p>
+    <div class="modal-options">
+      <span class="close-button" onclick="closeModal()">&times;</span>
+        <button onclick="redirectToFirstPage()" class="btnImg"><img src="https://cdn-icons-png.flaticon.com/512/3429/3429193.png" style="width: 30px;"></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button onclick="openSecondPage()" class="btnImg"><img src="https://cdn-icons-png.flaticon.com/512/3606/3606645.png" style="width: 30px;"></button>
+    </div>
+</div>
+  </div>
+</div>
+<div id="article3" class="article">
+    <h2>Coming Soon...</h2>
+    <p>Programmers Work On This Page.</p>
+      <p>May be this page is PAID.</p>
+</div>
+</div>
+<div id="plusIcon" onclick="showAddSiteForm()"><img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/plus-512.png" style="width: 29px"></div>
+  <div id="addedSitesContainer"></div>
+  <div id="popup">
+    <span onclick="closePopup()" style="cursor: pointer; position: absolute; top: 10px; right: 10px; font-size: 20px;">&times;</span>
+    <input type="text" id="popupName" placeholder="NAME:" class="int" onfocus="removePlaceholder(this)">
+    <br><br>
+    <input type="text" id="popupUrl" placeholder="URL:" class="int" onfocus="removePlaceholder(this)"> 
+    <br><br>
+    <input type="text" id="popupIconUrl" placeholder="Icon URL:" class="int" onfocus="removePlaceholder(this)">
+    <br><br>
+    <button onclick="addSiteFromPopup()" class="add">Add Site</button>
+  </div>
+    <script src="file.js"></script>
+    <script src="script.js"></script>
+    <script src="slider.js"></script>
+    <script src="Quick Link.js"></script>
+    <script src="link.js"></script>
+</body>
+</html>
