@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(function(OneSignal) {
-    OneSignal.init({
-      appId: "655a5eef-88dd-4a13-a032-06f046425f69",
-      safari_web_id: "web.onesignal.auto.1cd53ad7-1124-4d48-8712-0a155e6245f9",
-      notifyButton: {
-        enable: true,
-      },
-    });
-  });
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,8 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@350&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+<div class="traveling-light"></div>
 <body>
-
+  <div class="neon-background">
     <div id="openBtn" onclick="openSlider()">☰</div>
     <div id="slider">&nbsp;
       <button onclick="closeSlider()" class="x">X</button>
@@ -113,6 +101,7 @@
     <br><br>
     <button onclick="addSiteFromPopup()" class="add">Add Site</button>
   </div>
+</div>
     <script src="file.js"></script>
     <script src="script.js"></script>
     <script src="slider.js"></script>
