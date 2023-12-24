@@ -133,9 +133,8 @@ body {
     }
     .button:hover{
        font-family: 'Josefin Sans', sans-serif; 
-       background: #000;
-       font-weight: bolder;
-       border: none;
+       background: transparent;
+       border: 1px solid #000;
        color: white;
     }
     .input-container {
